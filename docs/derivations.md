@@ -50,3 +50,23 @@ $$
 $$
 
 If $z_1 < 0$, then $\operatorname{ReLU}'(z_1) = 0$ and the whole gradient is 0. No learning signal reaches there in this case if its zero (dead neuron)
+
+## 2. Input values
+
+Values: $x = 2,\; w_1 = 0.5,\; w_2 = 3,\; y = 1$.
+
+Forward pass:
+
+$$
+z_1 = 0.5 \times 2 = 1, \quad a_1 = 1, \quad z_2 = 3 \times 1 = 3, \quad L = (3 - 1)^2 = 4
+$$
+
+Gradients from the formulas:
+
+$$
+\frac{dL}{dw_2} = 1 \times 2(3 - 1) = 4
+$$
+
+$$
+\frac{dL}{dw_1} = 2 \times 2(3 - 1) \times 3 \times 1 = 24
+$$
