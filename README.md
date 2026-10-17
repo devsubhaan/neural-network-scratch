@@ -1,6 +1,4 @@
 # Neural Network From Scratch
-
-My attempt at making a neural network from scratch, knowing NOTHING. 
 Implemented from scratch in Python using NumPy and
 without deep learning frameworks such as PyTorch or TensorFlow.
 
