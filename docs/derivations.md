@@ -1,0 +1,84 @@
+# Backpropagation derivation
+
+Backpropagation is the chain rule applied backwards throughout the network.
+## Scalar network
+
+Forward pass:
+
+$$
+z_1 = w_1 x
+$$
+
+$$
+a_1 = \operatorname{ReLU}(z_1)
+$$
+
+$$
+z_2 = w_2 a_1
+$$
+
+$$
+L = (z_2 - y)^2
+$$
+
+ReLU and its derivative:
+
+$$
+\operatorname{ReLU}(z) = \max(0, z)
+\qquad
+\operatorname{ReLU}'(z) =
+\begin{cases}
+1 & z > 0 \\
+0 & z < 0
+\end{cases}
+$$
+
+np.maximum(0, z) is just what ReLU is, it removes negative values. The derivative is undefined at exactly 0, and the implementation uses 0 there.
+
+### Gradient with respect to $w_2$
+
+$$
+\frac{dL}{dw_2} = \frac{dz_2}{dw_2} \times \frac{dL}{dz_2} = a_1 \times 2(z_2 - y)
+$$
+
+### Gradient with respect to $w_1$
+
+$$
+\frac{dL}{dw_1}
+= \frac{dz_1}{dw_1} \times \frac{dL}{dz_2} \times \frac{dz_2}{da_1} \times \frac{da_1}{dz_1}
+= x \times 2(z_2 - y) \times w_2 \times \operatorname{ReLU}'(z_1)
+$$
+
+If $z_1 < 0$, then $\operatorname{ReLU}'(z_1) = 0$ and the whole gradient is 0. No learning signal reaches there in this case if its zero (dead neuron)
+
+## Input values
+
+Values: $x = 2,\; w_1 = 0.5,\; w_2 = 3,\; y = 1$.
+
+Forward pass:
+
+$$
+z_1 = 0.5 \times 2 = 1, \quad a_1 = 1, \quad z_2 = 3 \times 1 = 3, \quad L = (3 - 1)^2 = 4
+$$
+
+Gradients from the formulas:
+
+$$
+\frac{dL}{dw_2} = 1 \times 2(3 - 1) = 4
+$$
+
+$$
+\frac{dL}{dw_1} = 2 \times 2(3 - 1) \times 3 \times 1 = 24
+$$
+
+## Vectorising inputs
+
+Calculations and their results are found in the [Jupyter Notebook](notebooks/matrix.ipynb).
+
+## Softmax and cross-entropy
+
+Softmax is a formula which turns multiple values into a probability distribution.
+* All values are between 0 and 1
+* They all sum to one 
+
+$$\sigma(\mathbf{z})_i = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}$$
