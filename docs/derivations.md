@@ -1,7 +1,7 @@
 # Backpropagation derivation
 
 Backpropagation is the chain rule applied backwards throughout the network.
-## 1. Scalar network
+## Scalar network
 
 Forward pass:
 
@@ -51,7 +51,7 @@ $$
 
 If $z_1 < 0$, then $\operatorname{ReLU}'(z_1) = 0$ and the whole gradient is 0. No learning signal reaches there in this case if its zero (dead neuron)
 
-## 2. Input values
+## Input values
 
 Values: $x = 2,\; w_1 = 0.5,\; w_2 = 3,\; y = 1$.
 
@@ -70,3 +70,15 @@ $$
 $$
 \frac{dL}{dw_1} = 2 \times 2(3 - 1) \times 3 \times 1 = 24
 $$
+
+## Vectorising inputs
+
+Calculations and their results are found in the [Jupyter Notebook](notebooks/matrix.ipynb).
+
+## Softmax and cross-entropy
+
+Softmax is a formula which turns multiple values into a probability distribution.
+* All values are between 0 and 1
+* They all sum to one 
+
+$$\sigma(\mathbf{z})_i = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}$$
