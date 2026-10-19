@@ -28,3 +28,29 @@ def test_sigmoid_and_derivative(input_val, expected_sigmoid, expected_derivative
 
     assert actual_sigmoid == expected_sigmoid, f"Sigmoid failed for inputs: {input_val}"
     assert actual_derivative == expected_derivative, f"Derivative failed for inputs: {input_val}"
+
+@pytest.mark.parametrize (
+    "input_val, expected_relu, expected_derivative",
+    [
+        (),
+    ],
+)
+
+def test_relu_and_derivative(input_val, expected_relu, expected_derivative):
+    actual_relu = round(relu(input_val), 4)
+    actual_derivative = round(relu_derivative(input_val), 4)
+
+    assert actual_relu == expected_relu
+    assert actual_derivative == expected_derivative
+
+@pytest.mark.parametrize (
+    "input_val, expected" [ 
+        (),
+    ]
+)
+
+def test_softmax(input_val, expected_softmax):
+    actual_softmax = round()
+
+    assert actual_softmax == expected_softmax,  "Expected softmax value"
+    
