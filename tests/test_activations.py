@@ -4,16 +4,10 @@ import pytest
 from pathlib import Path
 
 root_path = Path(__file__).resolve().parent.parent
-sys.path.append(str(root_path))
-
-from src.nn_scratch.activations import *
-
-root_path = Path(__file__).resolve().parent.parent
 if str(root_path) not in sys.path:
     sys.path.append(str(root_path))
 
-from src.nn_scratch.activations import sigmoid, sigmoid_derivative
-
+from src.nn_scratch.activations import *
 
 # pytest tests/test_activations.py -v
 
