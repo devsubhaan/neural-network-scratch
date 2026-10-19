@@ -36,8 +36,10 @@ backpropagation, and gradient descent. -->
 
 ## Installation (WIP)
 
-<!-- Explain how to set up the environment and install dependencies. -->
-
+```bash
+python -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+```
 ---
 
 ## Usage (WIP)
@@ -54,7 +56,9 @@ backpropagation, and gradient descent. -->
 
 ## Tests (WIP)
 
-<!-- Explain how to run the test suite. -->
+```bash
+.venv/bin/python -m pytest
+```
 
 ---
 
