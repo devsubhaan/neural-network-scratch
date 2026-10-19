@@ -259,3 +259,25 @@ $$
 $$
  
 The target is below $10^{-6}$ in double precision.
+
+## Sigmoid function derivative
+
+$$\sigma(z) = \frac{1}{1 + e^{-z}} = (1 + e^{-z})^{-1}$$
+
+**1. Multiply by the power and reduce the power by 1 (Power Rule):**
+$$-(1 + e^{-z})^{-2}$$
+
+**2. Multiply by the derivative of the brackets:**
+The derivative of the inside bracket $(1 + e^{-z})$ is $-e^{-z}$. 
+
+Negative signs cancel out
+
+**3. Result:**
+$$e^{-z}(1 + e^{-z})^{-2}$$
+
+## ReLU derivative
+**ReLU** simply changes every negative number to zero and keeps positive numbers
+
+However, ReLU' (derivative) only produces a 0 or 1.
+- All positive values become 1.
+- All negative values become 0.
