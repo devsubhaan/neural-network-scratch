@@ -32,5 +32,31 @@ def test_sigmoid_and_derivative(input_val, expected_sigmoid, expected_derivative
     actual_sigmoid = round(sigmoid(input_val), 4)
     actual_derivative = round(sigmoid_derivative(input_val), 4)
 
-    assert actual_sigmoid == expected_sigmoid, f"Sigmoid failed for inputs: {input_val}"
-    assert actual_derivative == expected_derivative, f"Derivative failed for inputs: {input_val}"
+    assert actual_sigmoid == expected_sigmoid
+    assert actual_derivative == expected_derivative
+
+@pytest.mark.parametize(
+    "input_val, expected_softmax",
+    [
+        (),
+    ]
+)
+
+def test_softmax(input_val, expected_softmax):
+    actual_softmax = round(softmax(input_val), 4)
+
+    assert actual_softmax == expected_softmax
+
+@pytest.mark.parametize(
+    "input_val, expected_relu, expected_relu_derivative",
+    [
+        (),
+    ]
+)
+
+def test_relu_and_derivative(input_val, expected_relu, expected_derivative):
+    actual_relu = round(relu(input_val), 4)
+    actual_derivative = round(relu_derivative(input_val), 4)
+
+    assert actual_relu == expected_relu
+    assert actual_derivative == expected_derivative
