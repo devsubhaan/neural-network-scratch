@@ -1,5 +1,6 @@
 import numpy as np
-from abc import abstractmethod
+import sys
+from abc import ABC, abstractmethod
 from pathlib import Path
 
 root_path = Path(__file__).resolve().parent.parent
@@ -8,7 +9,7 @@ if str(root_path) not in sys.path:
 
 from src.nn_scratch.initializers import he_init
 
-class Layer:
+class Layer(ABC):
 
     def __init__(self):
         pass
@@ -25,3 +26,24 @@ class Layer:
         return []
 
 
+class Dense(Layer):
+    
+    def __init__(self, n_in, n_out, rng, init = he_init):
+        self.W = init(n_in, n_out, rng)
+        self.b = np.zeros([1, n_out])
+        self.dW = np.zeros[(n_in, n_out)]
+        self.db = np.zeros[(1, n_out)]
+        self._x = None
+
+    def forward(self, x):
+        if x.ndim == 2 and x.shape[1] == self.W.shape[0]:
+            self._x = x
+            return x @ self.W + self.b
+        
+        raise TypeError("Invalid x and/or W size")
+
+    def backward(self, grad_out):
+        pass
+
+    def params(self):
+        return []
