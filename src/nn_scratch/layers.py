@@ -43,7 +43,9 @@ class Dense(Layer):
         raise TypeError("Invalid x and/or W size")
 
     def backward(self, grad_out):
-        pass
+        self.dW = self._x.T @ grad_out
+        self.db = grad_out.sum(axis=0, keepdims=0)
+        return grad_out @ self.W.T
 
     def params(self):
-        return []
+        return [(self.W, self.dW), (self.b, self.db)]
