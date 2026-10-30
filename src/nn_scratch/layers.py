@@ -8,6 +8,7 @@ if str(root_path) not in sys.path:
     sys.path.append(str(root_path))
 
 from src.nn_scratch.initializers import he_init
+from src.nn_scratch.activations import relu, relu_derivative
 
 class Layer(ABC):
 
@@ -49,3 +50,15 @@ class Dense(Layer):
 
     def params(self):
         return [(self.W, self.dW), (self.b, self.db)]
+
+class ReLU(Layer):
+    
+    def __init__(self):
+        self._x = None
+    
+    def forward(self, x):
+        self._x
+        return relu(x)
+
+    def backward(self, grad_out):
+        return grad_out * relu_derivative(self._x)
