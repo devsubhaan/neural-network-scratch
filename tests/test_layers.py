@@ -56,4 +56,8 @@ def test_params(rng):
     d.backward(np.ones((1,2)))
     (w, dw), (b, db) = d.params()
     assert w == d.W and dw == d.dw and b == d.b and db == d.db
-    
+
+def test_relu_layer():
+    r = ReLU()
+    np.testing.assert_allclose(r.forward(np.array([[2.5, -0.5]])), [[2.5, 0.0]])
+    np.testing.assert_allclose(r.backward(np.array([[16.0, 24.0]])), [[16.0, 0.0]])
