@@ -31,9 +31,9 @@ class Dense(Layer):
     
     def __init__(self, n_in, n_out, rng, init = he_init):
         self.W = init(n_in, n_out, rng)
-        self.b = np.zeros([1, n_out])
-        self.dW = np.zeros[(n_in, n_out)]
-        self.db = np.zeros[(1, n_out)]
+        self.b = np.zeros((1, n_out))
+        self.dW = np.zeros((n_in, n_out))
+        self.db = np.zeros((1, n_out))
         self._x = None
 
     def forward(self, x):
@@ -57,7 +57,7 @@ class ReLU(Layer):
         self._x = None
     
     def forward(self, x):
-        self._x
+        self._x = x
         return relu(x)
 
     def backward(self, grad_out):
