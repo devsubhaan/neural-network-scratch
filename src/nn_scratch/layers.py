@@ -31,21 +31,23 @@ class Dense(Layer):
     
     def __init__(self, n_in, n_out, rng, init = he_init):
         self.W = init(n_in, n_out, rng)
-        self.b = np.zeros([1, n_out])
-        self.dW = np.zeros[(n_in, n_out)]
-        self.db = np.zeros[(1, n_out)]
+        self.b = np.zeros((1, n_out))
+        self.dW = np.zeros((n_in, n_out))
+        self.db = np.zeros((1, n_out))
         self._x = None
 
     def forward(self, x):
-        if x.ndim == 2 and x.shape[1] == self.W.shape[0]:
-            self._x = x
-            return x @ self.W + self.b
+        if x.ndim != 2 and x.shape[1] != self.W.shape[0]:
+            raise TypeError("Invalid x and/or W size")
+            
+        self._x = x
+        return x @ self.W + self.b
         
-        raise TypeError("Invalid x and/or W size")
 
     def backward(self, grad_out):
         self.dW = self._x.T @ grad_out
-        self.db = grad_out.sum(axis=0, keepdims=0)
+        self.db = grad_out.sum(axis=0, keepdims=True)
+        
         return grad_out @ self.W.T
 
     def params(self):
@@ -57,7 +59,7 @@ class ReLU(Layer):
         self._x = None
     
     def forward(self, x):
-        self._x
+        self._x = x
         return relu(x)
 
     def backward(self, grad_out):
