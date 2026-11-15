@@ -29,7 +29,8 @@ class Value:
         out = Value(self.data + other.data, (self, other))
 
         def _backward():
-            pass
+            self.grad += out.grad
+            other.grad += out.grad
 
         out._backward = _backward
 
@@ -46,7 +47,8 @@ class Value:
         out = Value(self.data * other.data, (self, other))
 
         def _backward():
-            pass
+            self.grad += out.data * out.grad
+            self.other += self.data * out.grad
                 
         out._backward = _backward
         
@@ -60,10 +62,10 @@ class Value:
         Applies power rule for the backwards pass
         """
         assert isinstance(other, (int, float)), "Only floats and integers allowed!"
-        out = Value(self.data ** other.data, (self, other), f"**{other}")
+        out = Value(self.data ** other.data, (self,), f"**{other}")
 
         def _backward():
-            pass
+            self.grad = other * ((self.data) ** (other - 1)) * out.grad
                 
         out._backward = _backward
         
@@ -77,7 +79,7 @@ class Value:
         out = 0 if self.data < 0 else self.data
 
         def _backward():
-            pass
+            self.grad = (out.data > 0) * out.grad
                 
         out._backward = _backward
         
