@@ -21,7 +21,10 @@ class Value:
         Makes sure that 'other' is a Value object
         Simply adds the output to the self and other gradients
         """
-        pass
+        other = other if isinstance(other, Value) else Value(other)
+        out = Value(self.data + other.data, (self, other), ('+'))
+
+        return out
 
     def __mul__(self, other):
         """
@@ -30,7 +33,10 @@ class Value:
         Makes sure that 'other' is a Value object
         Uses chain rule for both self and other gradients
         """
-        pass
+        other = other if isinstance(other, Value) else Value(other)
+        out = Value(self.data * other.data, (self, other), ('*'))
+        
+        return out
 
     def __pow__(self, other):
         """
@@ -39,14 +45,19 @@ class Value:
         Checks if the power is an integer or float
         Applies power rule for the backwards pass
         """
-        pass
+        assert isinstance(other, (int, float)), "Only floats and integers allowed!"
+        out = Value(self.data ** other.data, (self, other), f"**{other}")
+
+        return out
 
     def relu(self):
         """
         Values less than zero become zero
         Values bigger than zero stay
         """
-        pass
+        out = 0 if self.data < 0 else self.data
+
+        return out
 
     def backward(self):
         """
@@ -59,46 +70,46 @@ class Value:
         """
         Negates a value turning it negative
         """
-        pass
+        return self.data * -1
 
     def __radd__(self, other):
         """
         Fallback for when self is not a value object and cant add other (b + a is done)
         """
-        pass
+        return self + other
 
     def __sub__(self, other):
         """
         Subtracts self and other (a - b)
         """
-        pass
+        return self + (-other)
 
     def __rsub__(self, other):
         """
         Fallback for when a is not a value object and cant subtract b
         """
-        pass
-
+        return other + (-self)
+    
     def __rmul__(self, other):
         """
         Fallback for when a is not a value object and cant multiply b
         """
-        pass
+        return self * other
 
     def __truediv__(self, other):
         """
         Divides self by other (a/b)
         """
-        pass
+        return self * (other ** -1)
 
     def __rtruediv__(self, other):
         """
         Fallback for when a is not a value object and cant divide b
         """
-        pass
+        return other * (self ** -1)
 
     def __repr__(self):
         """
         Output the values in the format Value(data='', grad = '')
         """
-        pass
+        return f"Value(data={self.data}, grad={self.grad})"
