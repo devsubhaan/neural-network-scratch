@@ -6,13 +6,17 @@ class Value:
     Stores a single value along with its gradient
     """
 
-    def __init__(self, data, _children=(), _op=''):
+    def __init__(self, data, _children=()):
         """
         Initialises a new Value node
         Tracks the data, gradient, children nodes 
-        and the operation used to create it
         """
-        pass
+        self.data = data
+        self.grad = 0
+
+        self._children= _children
+        self._previous = set(_children)
+        self.backward = lambda: None
 
     def __add__(self, other):
         """
@@ -22,7 +26,12 @@ class Value:
         Simply adds the output to the self and other gradients
         """
         other = other if isinstance(other, Value) else Value(other)
-        out = Value(self.data + other.data, (self, other), ('+'))
+        out = Value(self.data + other.data, (self, other))
+
+        def _backward():
+            pass
+
+        out._backward = _backward
 
         return out
 
@@ -34,7 +43,12 @@ class Value:
         Uses chain rule for both self and other gradients
         """
         other = other if isinstance(other, Value) else Value(other)
-        out = Value(self.data * other.data, (self, other), ('*'))
+        out = Value(self.data * other.data, (self, other))
+
+        def _backward():
+            pass
+                
+        out._backward = _backward
         
         return out
 
@@ -48,6 +62,11 @@ class Value:
         assert isinstance(other, (int, float)), "Only floats and integers allowed!"
         out = Value(self.data ** other.data, (self, other), f"**{other}")
 
+        def _backward():
+            pass
+                
+        out._backward = _backward
+        
         return out
 
     def relu(self):
@@ -57,12 +76,18 @@ class Value:
         """
         out = 0 if self.data < 0 else self.data
 
+        def _backward():
+            pass
+                
+        out._backward = _backward
+        
         return out
 
     def backward(self):
         """
         Calculates the gradients via backpropagation by first sorting the children in reverse order
         Then applys chain rule to get their gradients
+        Uses a topological sort
         """
         pass
 
