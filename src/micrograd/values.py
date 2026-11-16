@@ -91,7 +91,22 @@ class Value:
         Then applys chain rule to get their gradients
         Uses a topological sort
         """
-        pass
+
+        sort = []
+        visited = set()
+
+        def topo(v):
+            if not v in visited:
+                visited.add(v)
+                for child in v._prev:
+                    topo(child)
+                sort.append(v)
+
+        topo(self)
+
+        self.grad = 1
+        for v in reversed(sort):
+            v._backward()
 
     def __neg__(self):
         """
