@@ -25,31 +25,35 @@ class Neuron(Module):
     Represents a single perceptron
     Holds a list of weights and a singular bias
     """
-    def __init__(self):
+    def __init__(self, nin, nonlin=True):
         """
         Initialize weights randomly and the bias
         """
-        pass
+        self.w = [Value(random.uniform(-1, 1)) for _ in range(nin)]
+        self.b = Value(0)
+        self.nonlin = nonlin
 
-    def __call__(self):
+
+    def __call__(self, x):
         """
         Calculates the sum of all 'wx' and adds the bias
         Gives wx + b
         """
-        pass
+        ret = sum(wx*ix for wx, ix in zip(self.w, x)) + self.b
+        return ret.relu() if self.nonlin else ret
 
     def parameters(self):
         """
         Returns a list of all weights and the bias 
         """
-        pass
+        return self.w + [self.b]
 
     def __repr__(self):
         """
         Returns string representation of the neuron
         Shows ReLU or linear along with the number of inputs
         """
-        pass
+        return f"{'Relu' if self.nonlin else 'Linear'} -> Neuron -> {len(self.w)}"
 
 class Layer(Module):
     """
