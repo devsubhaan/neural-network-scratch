@@ -11,7 +11,8 @@ class Module:
         Resets all gradients to 0.0
         Called before every backwards pass
         """
-        pass
+        for p in self.parameters:
+            p.grad = 0
 
     def parameters(self):
         """
@@ -39,7 +40,7 @@ class Neuron(Module):
 
     def parameters(self):
         """
-        Returns a list of all weights and the bias
+        Returns a list of all weights and the bias 
         """
         pass
 
