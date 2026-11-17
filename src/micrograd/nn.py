@@ -53,36 +53,36 @@ class Neuron(Module):
         Returns string representation of the neuron
         Shows ReLU or linear along with the number of inputs
         """
-        return f"{'Relu' if self.nonlin else 'Linear'} -> Neuron -> {len(self.w)}"
+        return f"{'Relu' if self.nonlin else 'Linear'} -> Neuron({len(self.w))}"
 
 class Layer(Module):
     """
     Represents a dense, fully connected neuron layer
     passes inputs in parallel to different neurons
     """
-    def __init__(self):
+    def __init__(self, nin, nout, **kwargs):
         """
         Initialises a collection of parallel neurons
         """
-        pass
+        self.neurons = [Neuron(nin, **kwargs) for _ in range(nout)]
     
     def __call__(self, x):
         """
         Evaluate the input vector across all neurons in parallel.
         """
-        pass
+        return [n(x) for n in self.neurons]
     
     def parameters(self):
         """
         Returns a flattened list of all parameters from all neurons.
         """
-        pass
+        return [p for n in self.neurons for p in n.parameters()]
     
     def __repr__(self):
         """
         Return a string listing the representations of every neuron in the layer.
         """
-        pass
+        return f"Layer of [{', '.join(str(n) for n in self.neurons)}]"
 
 class MLP(Module):
     """
