@@ -94,23 +94,26 @@ class MLP(Module):
         Build the network layers using the input and output sizes.
         Keeps ReLU for hidden layers but off for the final output.
         """
-        pass
+        sz = [nin] + nouts
+        self.layers = [Layer(sz[i], sz[i+1], nonlin=i!=len(nouts)-1) for i in range(len(nouts))]
 
     def __call__(self, x):
         """
         Pass the input through all network layers.
         Updates the data and returns the final layer's output.
         """
-        pass
+        for layer in self.layers:
+            x = layer(x)
+        return x
 
     def parameters(self):
         """
         Returns a flattened list of all parameters across all layers.
         """
-        pass
+        return [p for layer in self.layers for p in layer.parameters()]
 
     def __repr__(self):
         """
         Returns a string of the structural representations of all layers.
         """
-        pass
+        return f"MLP of [{', '.join(str(layer) for layer in self.layers)}]"
