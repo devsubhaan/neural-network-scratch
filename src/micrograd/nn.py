@@ -1,5 +1,5 @@
 import random
-from micrograd.values import Value
+from values import Value
 
 class Module:
     """
@@ -53,7 +53,7 @@ class Neuron(Module):
         Returns string representation of the neuron
         Shows ReLU or linear along with the number of inputs
         """
-        return f"{'Relu' if self.nonlin else 'Linear'} -> Neuron({len(self.w))}"
+        return f"{'Relu' if self.nonlin else 'Linear'} -> Neuron({len(self.w)}"
 
 class Layer(Module):
     """
