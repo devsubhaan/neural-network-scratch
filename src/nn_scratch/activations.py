@@ -15,7 +15,12 @@ def relu(z: float) -> float:
     return np.maximum(0, z)
 
 def relu_derivative(z: float) -> float:
-    return (z > 0).astype(float)
+    if z > 0.0:
+        return 1.0
+    elif z < 0.:
+        return 0.0
+    else:
+        return 0.0
 
 def cross_entropy(y_pred: np.ndarray, y_true: np.ndarray) -> float:
     batch_size = y_true.shape[1]
