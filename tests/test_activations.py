@@ -59,6 +59,7 @@ def test_relu_and_derivative(input_val, expected_relu, expected_derivative):
         ),
     ],
 )
+
 def test_softmax(input_val, expected_output):
     np.testing.assert_allclose(softmax(input_val), expected_output, rtol=1e-6)
 
