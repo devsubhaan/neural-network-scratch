@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from nn_scratch.layers import Dense, Layer
+from nn_scratch.layers import Dense, Layer, ReLU
 
 """
 pytest tests/test_layers.py -v
