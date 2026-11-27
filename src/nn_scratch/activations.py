@@ -14,11 +14,6 @@ def softmax(z: np.ndarray[float]) -> np.ndarray[float]:
 def relu(z: float) -> float:
     return np.maximum(0, z)
 
-def relu_derivative(z: float) -> float:
-    if z > 0.0:
-        return 1.0
-    elif z < 0.:
-        return 0.0
-    else:
-        return 0.0
+def relu_derivative(z: np.ndarray) -> np.ndarray:
+    return (z > 0).astype(float)
 
