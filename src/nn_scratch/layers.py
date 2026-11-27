@@ -37,8 +37,8 @@ class Dense(Layer):
         self._x = None
 
     def forward(self, x):
-        if x.ndim != 2 and x.shape[1] != self.W.shape[0]:
-            raise TypeError("Invalid x and/or W size")
+        if x.ndim != 2 or x.shape[1] != self.W.shape[0]:
+            raise ValueError("Invalid x and/or W size")
             
         self._x = x
         return x @ self.W + self.b

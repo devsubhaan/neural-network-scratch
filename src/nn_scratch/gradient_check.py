@@ -1,8 +1,8 @@
 import numpy as np
 
-from layers import Dense, ReLU
-from activations import softmax
-from loss import categorical_cross_entropy, categorical_cross_entropy_derivative
+from src.nn_scratch.layers import Dense, ReLU
+from src.nn_scratch.activations import softmax
+from src.nn_scratch.losses import categorical_cross_entropy, categorical_cross_entropy_derivative
 
 def one_hot(labels: np.ndarray, num_classes: int) -> np.ndarray:
     """labels: (batch,) ints -> (num_classes, batch)"""
