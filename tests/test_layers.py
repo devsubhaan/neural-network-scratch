@@ -36,12 +36,12 @@ def test_init(rng):
 
 def test_backward(rng):
     d = Dense(2, 2, rng)
-    d.W = np.array[[0.5, -1.0], [1.0, 0.25]]
-    d.b = np.zero((1,2))
+    d.W = np.array([[0.5, -1.0], [1.0, 0.25]])
+    d.b = np.zeros((1, 2))
     d.forward(np.array([[1.0, 2.0]]))
-    dx = d.backward(np.array[[16.0, 0.0]])
+    dx = d.backward(np.array([[16.0, 0.0]]))
     np.testing.assert_allclose(d.dW, [[16, 0], [32, 0]])
-    np.testing.assert_allclose(d.db, [[16,0]])
+    np.testing.assert_allclose(d.db, [[16, 0]])
     np.testing.assert_allclose(dx, [[8, 16]])
 
 def test_gradient_shapes(rng):
@@ -51,11 +51,14 @@ def test_gradient_shapes(rng):
     assert d.dW.shape == d.W.shape and d.db.shape == d.b.shape and dx.shape == (5,3)
 
 def test_params(rng):
-    d = Dense(2,2, rng)
-    d.forward(np.ones((1,2)))
-    d.backward(np.ones((1,2)))
+    d = Dense(2, 2, rng)
+    d.forward(np.ones((1, 2)))
+    d.backward(np.ones((1, 2)))
     (w, dw), (b, db) = d.params()
-    assert w == d.W and dw == d.dw and b == d.b and db == d.db
+    assert w is d.W
+    assert dw is d.dW
+    assert b is d.b
+    assert db is d.db
 
 def test_relu_layer():
     r = ReLU()

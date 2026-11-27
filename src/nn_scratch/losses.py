@@ -19,5 +19,5 @@ def categorical_cross_entropy(y_true: np.ndarray, y_pred: np.ndarray) -> float:
 
     return negative_log_likelihoods_mean
 
-def categorical_cross_entropy_derivative(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+def categorical_cross_entropy_derivative(y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
     return (y_pred - y_true) / y_true.shape[0]
